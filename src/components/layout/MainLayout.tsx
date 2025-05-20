@@ -5,6 +5,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import { Outlet } from "react-router-dom";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -47,10 +48,8 @@ const MainLayout: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Content>
-          <div className="h-screen flex justify-center items-center ">
-            content
-          </div>
+        <Content className="h-[calc(100vh-69px)] flex justify-center items-center">
+          <Outlet />
         </Content>
         <Footer className="text-center  flex justify-center items-center ">
           PH University ©{new Date().getFullYear()} Created by{" "}
