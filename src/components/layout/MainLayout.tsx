@@ -12,7 +12,7 @@ const MainLayout: React.FC = () => {
     <Layout className="">
       <Sidebar />
       <Layout>
-        <Content className="h-[calc(100vh-69px)] flex justify-center items-center">
+        <Content className="h-screen flex justify-center items-center">
           <Outlet />
         </Content>
       </Layout>
