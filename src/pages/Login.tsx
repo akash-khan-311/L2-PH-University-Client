@@ -35,7 +35,7 @@ const LoginPage = () => {
     reset();
   };
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#001529] relative">
+    <div className="flex items-center justify-center min-h-screen bg-[#001529] relative login">
       <div className="bg-white/20 backdrop-blur-sm border bg-opacity-80 p-8 rounded-3xl shadow-2xl  max-w-md w-full">
         <h1 className="text-4xl font-extrabold text-center mb-8  text-white">
           PH University

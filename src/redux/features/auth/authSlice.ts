@@ -28,3 +28,12 @@ export const authSlice = createSlice({
 
 export const { setUser, logOut } = authSlice.actions;
 export default authSlice.reducer;
+
+interface RootState {
+  auth: TAuthState;
+}
+
+export const useCurrentUser = (state: RootState): TAuthState["user"] =>
+  state.auth.user;
+export const useCurrentToken = (state: RootState): TAuthState["token"] =>
+  state.auth.token;

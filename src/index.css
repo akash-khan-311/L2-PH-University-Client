@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+.login {
+  background: url("https://t3.ftcdn.net/jpg/05/06/79/02/360_F_506790264_N8BVZ9NLLRrTAShK6PADQmo0SZ4LUuJJ.jpg"),
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
