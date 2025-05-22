@@ -1,7 +1,9 @@
 const ContactPage = () => {
   return (
     <div>
-      <h1>Contact</h1>
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
+        Contact
+      </h1>
     </div>
   );
 };

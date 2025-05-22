@@ -18,3 +18,10 @@ export type RouteItem = {
   element?: ReactNode;
   children?: TRoute[];
 };
+
+export type TUser = {
+  role: string;
+  userId: string;
+  iat: number;
+  exp: number;
+};

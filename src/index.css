@@ -9,3 +9,15 @@
   background-size: cover;
   background-attachment: fixed;
 }
+:where(.css-dev-only-do-not-override-vrrzze).ant-menu-dark.ant-menu-inline
+  .ant-menu-sub.ant-menu-inline,
+:where(.css-dev-only-do-not-override-vrrzze).ant-menu-dark
+  > .ant-menu.ant-menu-inline
+  .ant-menu-sub.ant-menu-inline {
+  backdrop-filter: blur(10px);
+  padding: 10px 0;
+}
+
+body {
+  overflow-x: hidden;
+}
