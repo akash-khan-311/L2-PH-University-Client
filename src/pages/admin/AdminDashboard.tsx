@@ -1,9 +1,9 @@
-import { useCurrentUser } from "../../redux/features/auth/authSlice";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
 import type { TUser } from "../../types";
 
 const AdminDashboard = () => {
-  const user = useAppSelector(useCurrentUser) as TUser;
+  const user = useAppSelector(selectCurrentUser) as TUser;
   return (
     <div>
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white">

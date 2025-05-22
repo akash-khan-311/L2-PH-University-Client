@@ -34,7 +34,7 @@ interface RootState {
   auth: TAuthState;
 }
 
-export const useCurrentUser = (state: RootState): TAuthState["user"] =>
+export const selectCurrentUser = (state: RootState): TAuthState["user"] =>
   state.auth.user;
 export const useCurrentToken = (state: RootState): TAuthState["token"] =>
   state.auth.token;

@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import type { RouteItem, TAdminSidebarRoute } from "../types";
 
 export const sidebarItemGenerator = (items: RouteItem[], role: string) => {
-  console.log(role);
   const sidebarItems = items.reduce((acc: TAdminSidebarRoute[], route) => {
     if (route.path && route.name) {
       acc.push({

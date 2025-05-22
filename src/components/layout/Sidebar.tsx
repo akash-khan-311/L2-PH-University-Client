@@ -5,13 +5,13 @@ import { adminPaths } from "../../routes/admin.routes";
 import { studentPaths } from "../../routes/student.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { logOut, useCurrentUser } from "../../redux/features/auth/authSlice";
+import { logOut, selectCurrentUser } from "../../redux/features/auth/authSlice";
 import type { TUser } from "../../types";
 
 // Define a User type with a role property
 
 const Sidebar = () => {
-  const user = useAppSelector(useCurrentUser) as TUser;
+  const user = useAppSelector(selectCurrentUser) as TUser;
   const role = user?.role;
 
   const dispatch = useAppDispatch();
@@ -54,7 +54,7 @@ const Sidebar = () => {
         console.log(collapsed, type);
       }}
     >
-      <div className="flex flex-col h-screen bg-white/10  backdrop-blur-3xl justify-between  ">
+      <div className="flex flex-col h-screen  bg-white/10 backdrop-blur-sm justify-between  ">
         <div>
           <div className="">
             <h1 className="text-2xl text-white font-bold p-4 text-center">
