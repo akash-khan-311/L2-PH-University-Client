@@ -2,11 +2,11 @@ import { Button } from "antd";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/authApi";
 import { useAppDispatch } from "../redux/hooks";
-import { setUser } from "../redux/features/auth/authSlice";
-import { verifyToken } from "../utils/verifyToken";
+
 import { useLocation, useNavigate } from "react-router-dom";
-import type { TUser } from "../types";
-import { toast } from "react-toastify";
+
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
 
 type LoginFormInputs = {
   id: string;
@@ -17,7 +17,7 @@ const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { register, reset, handleSubmit } = useForm<LoginFormInputs>({
+  const { register, reset } = useForm<LoginFormInputs>({
     defaultValues: {
       id: "A-0001",
       password: "admin789",
@@ -32,27 +32,29 @@ const LoginPage = () => {
       password: data.password,
     };
 
-    try {
-      if (isLoading) toast.loading("Loading....");
-      const res = await login(userInfo).unwrap();
-      const user = verifyToken(res.data.accessToken) as TUser;
-      console.log(user);
+    console.log(userInfo);
 
-      dispatch(setUser({ user, token: res.data.accessToken }));
-      const from = location.state?.from?.pathname || `/${user.role}/dashboard`;
-      // You may want to navigate to 'from' here
-      navigate(from, { replace: true });
-      toast.success("Login successful!", {
-        autoClose: 1000,
-        position: "bottom-right",
-        theme: "dark",
-      });
+    // try {
+    //   if (isLoading) toast.loading("Loading....");
+    //   const res = await login(userInfo).unwrap();
+    //   const user = verifyToken(res.data.accessToken) as TUser;
+    //   console.log(user);
 
-      reset();
-    } catch (error) {
-      console.log(error, "error from login ");
-      toast.error("Login failed. Please check your credentials.");
-    }
+    //   dispatch(setUser({ user, token: res.data.accessToken }));
+    //   const from = location.state?.from?.pathname || `/${user.role}/dashboard`;
+    //   // You may want to navigate to 'from' here
+    //   navigate(from, { replace: true });
+    //   toast.success("Login successful!", {
+    //     autoClose: 1000,
+    //     position: "bottom-right",
+    //     theme: "dark",
+    //   });
+
+    //   reset();
+    // } catch (error) {
+    //   console.log(error, "error from login ");
+    //   toast.error("Login failed. Please check your credentials.");
+    // }
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#001529] relative login">
@@ -60,37 +62,17 @@ const LoginPage = () => {
         <h1 className="text-4xl font-extrabold text-center mb-8  text-white">
           PH University
         </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 pb-20">
-          <div className="relative">
-            <label
-              className="text-[17px] text-white mb-2 block font-semibold"
-              htmlFor="id"
-            >
-              User ID
-            </label>
-            <input
-              {...register("id")}
-              id="id"
-              type="id"
-              placeholder="User ID"
-              className="w-full bg-white/10 backdrop-blur-2xl text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#001529]  transition-all duration-300"
-            />
-          </div>
-          <div className="relative">
-            <label
-              className="text-[17px] text-white mb-2 block font-semibold"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              {...register("password")}
-              id="password"
-              type="text"
-              placeholder="Password"
-              className="w-full bg-white/10 backdrop-blur-2xl text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#001529] transition-all duration-300"
-            />
-          </div>
+
+        <PHForm onSubmit={onSubmit}>
+          <PHInput type="text" name="id" placeholder="User ID" label={true} />
+
+          <PHInput
+            type="password"
+            placeholder="Password"
+            name="password"
+            label={true}
+          />
+
           <Button
             htmlType="submit"
             className="w-full "
@@ -123,7 +105,7 @@ const LoginPage = () => {
               "Register"
             )}
           </Button>
-        </form>
+        </PHForm>
       </div>
     </div>
   );
