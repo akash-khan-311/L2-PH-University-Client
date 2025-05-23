@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { useForm } from "react-hook-form";
+
 import { useLoginMutation } from "../redux/features/authApi";
 import { useAppDispatch } from "../redux/hooks";
 
@@ -7,6 +7,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import PHForm from "../components/form/PHForm";
 import PHInput from "../components/form/PHInput";
+import { setUser } from "../redux/features/auth/authSlice";
+import { toast } from "react-toastify";
+import { verifyToken } from "../utils/verifyToken";
+import type { TUser } from "../types";
 
 type LoginFormInputs = {
   id: string;
@@ -16,13 +20,10 @@ type LoginFormInputs = {
 const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  const { register, reset } = useForm<LoginFormInputs>({
-    defaultValues: {
-      id: "A-0001",
-      password: "admin789",
-    },
-  });
+  const defaultValues = {
+    id: "A-0001",
+    password: "admin789",
+  };
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
 
@@ -34,27 +35,25 @@ const LoginPage = () => {
 
     console.log(userInfo);
 
-    // try {
-    //   if (isLoading) toast.loading("Loading....");
-    //   const res = await login(userInfo).unwrap();
-    //   const user = verifyToken(res.data.accessToken) as TUser;
-    //   console.log(user);
+    try {
+      if (isLoading) toast.loading("Loading....");
+      const res = await login(userInfo).unwrap();
+      const user = verifyToken(res.data.accessToken) as TUser;
+      console.log(user);
 
-    //   dispatch(setUser({ user, token: res.data.accessToken }));
-    //   const from = location.state?.from?.pathname || `/${user.role}/dashboard`;
-    //   // You may want to navigate to 'from' here
-    //   navigate(from, { replace: true });
-    //   toast.success("Login successful!", {
-    //     autoClose: 1000,
-    //     position: "bottom-right",
-    //     theme: "dark",
-    //   });
-
-    //   reset();
-    // } catch (error) {
-    //   console.log(error, "error from login ");
-    //   toast.error("Login failed. Please check your credentials.");
-    // }
+      dispatch(setUser({ user, token: res.data.accessToken }));
+      const from = location.state?.from?.pathname || `/${user.role}/dashboard`;
+      // You may want to navigate to 'from' here
+      navigate(from, { replace: true });
+      toast.success("Login successful!", {
+        autoClose: 1000,
+        position: "bottom-right",
+        theme: "dark",
+      });
+    } catch (error) {
+      console.log(error, "error from login ");
+      toast.error("Login failed. Please check your credentials.");
+    }
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#001529] relative login">

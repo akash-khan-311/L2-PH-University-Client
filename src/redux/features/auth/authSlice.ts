@@ -11,6 +11,8 @@ const initialState: TAuthState = {
   token: null,
 };
 
+console.log(initialState);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,

@@ -11,14 +11,14 @@ type TInput = {
 const PHInput = ({ type, placeholder, name, label }: TInput) => {
   return (
     <div className="mb-4">
-      {label ? (
+      {label && (
         <label
           className="text-[17px] text-white mb-2 block font-semibold"
           htmlFor={name}
         >
           {type === "text" ? placeholder : "Password"}
         </label>
-      ) : null}
+      )}
       <Controller
         name={name}
         render={({ field }) => (
