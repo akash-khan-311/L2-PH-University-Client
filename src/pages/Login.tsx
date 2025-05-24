@@ -20,10 +20,7 @@ type LoginFormInputs = {
 const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const defaultValues = {
-    id: "A-0001",
-    password: "admin789",
-  };
+
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
 
