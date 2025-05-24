@@ -51,8 +51,14 @@ const LoginPage = () => {
         theme: "dark",
       });
     } catch (error) {
-      console.log(error, "error from login ");
-      toast.error("Login failed. Please check your credentials.");
+      const { data } = error;
+      console.log(data);
+      if (data?.message === "User Not Found") {
+        toast.error(data.message, {});
+      }
+      if (data?.message === "Incorrect Password") {
+        toast.error(data.message, {});
+      }
     }
   };
   return (
