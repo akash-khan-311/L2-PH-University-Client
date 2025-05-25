@@ -1,4 +1,5 @@
 
+import { Form } from "antd";
 import type { ReactNode } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -11,7 +12,7 @@ const PHForm = <T,>({ onSubmit, children }: PHFormProps<T>) => {
   const methods = useForm<T>();
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>{children}</Form>
     </FormProvider>
   );
 };

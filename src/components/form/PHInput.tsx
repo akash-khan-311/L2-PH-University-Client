@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Form, Input } from "antd";
 import { Controller } from "react-hook-form";
 
 type TInput = {
@@ -16,20 +16,22 @@ const PHInput = ({ type, placeholder, name, label }: TInput) => {
           className="text-[17px] text-white mb-2 block font-semibold"
           htmlFor={name}
         >
-          {type === "text" ? placeholder : "Password"}
+          {placeholder}
         </label>
       )}
       <Controller
         name={name}
         render={({ field }) => (
-          <Input
-            size="large"
-            {...field}
-            type={type}
-            id={name}
-            placeholder={placeholder}
-            className="bg-white/10 backdrop-blur-lg "
-          />
+          <Form.Item>
+            <Input
+              size="large"
+              {...field}
+              type={type}
+              id={name}
+              placeholder={placeholder}
+              className="bg-white/10 backdrop-blur-lg "
+            />
+          </Form.Item>
         )}
       />
     </div>
