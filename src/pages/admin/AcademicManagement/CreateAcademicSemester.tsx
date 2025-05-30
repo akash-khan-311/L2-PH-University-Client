@@ -1,44 +1,60 @@
-import PHForm from "@/components/form/PHForm";
+import { FieldValues, SubmitHandler, } from "react-hook-form";
 
-import PHSelect from "@/components/form/PHSelect";
+import { semesterOptions } from "@/constants/semester";
+import { monthOptions } from "@/constants/global";
 import { Button } from "antd";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import PHForm from "@/components/form/PHForm";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { academicSemesterSchema } from "@/schemas/academicManagement.schema";
+import PHSelect from "@/components/form/PHSelect";
+const currentYear = new Date().getFullYear();
+const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
+  value: String(currentYear + number),
+  label: String(currentYear + number),
+}));
 
-const nameOptions = [
-  { value: "01", label: "Autumn" },
-  { value: "02", label: "Summer" },
-  { value: "03", label: "Fall" },
-];
 
 const CreateAcademicSemester = () => {
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const name = nameOptions[data.name - 1].label;
+
+
+
+  const onSubmit : SubmitHandler<FieldValues> = (data: any) => {
+   
+const name = semesterOptions[data.name - 1].label;
+
     const semesterData = {
       name,
       code: data.name,
+      year: data.year,
+      startMonth: data.startMonth,
+      endMonth: data.endMonth,
     };
     console.log(semesterData);
   };
+
   return (
-    <div className="md:w-1/2 mx-auto w-full ">
-      <PHForm onSubmit={onSubmit}>
-        <div className="flex justify-between items-center">
-          <PHSelect options={nameOptions} label="Name" name="name" />
-          <PHSelect options={nameOptions} label="Year" name="year" />
-        </div>
-       <div className="flex justify-between items-center">
-         <PHSelect options={nameOptions} label="Start Month" name="startMonth" />
-        <PHSelect options={nameOptions} label="End Month" name="endMonth" />
-       </div>
-        <Button
-          size="large"
-          variant="solid"
-          htmlType="submit"
-          className="w-full mt-10 "
+    <div className="md:w-1/2 mx-auto w-full">
+      <PHForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(academicSemesterSchema)}
         >
-          Submit
-        </Button>
-      </PHForm>
+         <div className="flex justify-between items-center gap-x-10">
+          <div className="w-full">
+             <PHSelect label="Name" name="name" options={semesterOptions} />
+          </div>
+          <div className="w-full">
+            <PHSelect label="Year" name="year" options={yearOptions} />
+          </div>
+         </div>
+          <PHSelect
+            label="Start Month"
+            name="startMonth"
+            options={monthOptions}
+          />
+          <PHSelect label="End Month" name="endMonth" options={monthOptions} />
+
+          <Button htmlType="submit">Submit</Button>
+        </PHForm>
     </div>
   );
 };

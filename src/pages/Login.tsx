@@ -5,12 +5,15 @@ import { useAppDispatch } from "../redux/hooks";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import PHForm from "../components/form/PHForm";
+
 import PHInput from "../components/form/PHInput";
 import { setUser } from "../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import { verifyToken } from "../utils/verifyToken";
 import type { TUser } from "../types";
+import { useForm } from "react-hook-form";
+import Field from "@/components/form/FieldWrapper";
+import FieldWrapper from "@/components/form/FieldWrapper";
 
 type LoginFormInputs = {
   id: string;
@@ -18,6 +21,12 @@ type LoginFormInputs = {
 };
 
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -47,6 +56,7 @@ const LoginPage = () => {
         position: "bottom-right",
         theme: "dark",
       });
+      reset();
     } catch (error) {
       const { data } = error;
       console.log(data);
@@ -65,19 +75,32 @@ const LoginPage = () => {
           PH University
         </h1>
 
-        <PHForm onSubmit={onSubmit}>
-          <PHInput type="text" name="id" placeholder="User ID" label={true} />
+        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+          <FieldWrapper required={true} label={"ID"} htmlFor="id" error={errors.id}>
+            <PHInput
+              type="text"
+              placeholder="Enter Your ID"
+              name="id"
+              register={register}
+              errors={errors}
+            />
+          </FieldWrapper>
+
+      <Field required={true} label={"Password"} htmlFor="password" error={errors.password}>
+
 
           <PHInput
             type="password"
-            placeholder="Password"
+            placeholder="Enter Your Password"
             name="password"
-            label={true}
-          />
+            register={register}
+            errors={errors}
+            />
+            </Field>
 
           <Button
             htmlType="submit"
-            className="w-full "
+            className="w-full mt-10"
             variant="solid"
             color="magenta"
             size="large"
@@ -107,7 +130,7 @@ const LoginPage = () => {
               "Register"
             )}
           </Button>
-        </PHForm>
+        </form>
       </div>
     </div>
   );

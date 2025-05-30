@@ -1,39 +1,27 @@
-import { Form, Input } from "antd";
-import { Controller } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 type TInput = {
   type: string;
   placeholder: string;
   name: string;
-  label: boolean;
+  register: UseFormRegister<any>;
+  errors: FieldErrors<any>;
 };
 
-const PHInput = ({ type, placeholder, name, label }: TInput) => {
+const PHInput = ({ register, name, errors, type, placeholder }: TInput) => {
   return (
-    <div className="mb-4">
-      {label && (
-        <label
-          className="text-[17px] text-white mb-2 block font-semibold"
-          htmlFor={name}
-        >
-          {placeholder}
-        </label>
-      )}
-      <Controller
+    <div className="">
+      <input
+        {...register(name, { required: `${name} is required` })}
         name={name}
-        render={({ field }) => (
-          <Form.Item>
-            <Input
-              size="large"
-              {...field}
-              type={type}
-              id={name}
-              placeholder={placeholder}
-              className="bg-white/10 backdrop-blur-lg "
-            />
-          </Form.Item>
-        )}
+        type={type}
+        id={name}
+        placeholder={placeholder}
+        className={`${
+          errors[name] ? "border-red-500" : "border-white"
+        } w-full px-4 py-3  text-white border focus:outline-none rounded-md backdrop-blur-xl bg-white/30 placeholder:text-white`}
       />
+      
     </div>
   );
 };
