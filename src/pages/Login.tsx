@@ -39,7 +39,7 @@ const LoginPage = () => {
       password: data.password,
     };
 
-    console.log(userInfo);
+    
 
     try {
       if (isLoading) toast.loading("Loading....");
@@ -58,14 +58,17 @@ const LoginPage = () => {
       });
       reset();
     } catch (error) {
+      console.log(error)
       const { data } = error;
-      console.log(data);
-      if (data?.message === "User Not Found") {
-        toast.error(data.message, {});
+  
+      if (data?.message) {
+        toast.error(data.message, {
+          autoClose: 3000,
+          position: "top-center",
+          theme: "dark",
+        });
       }
-      if (data?.message === "Incorrect Password") {
-        toast.error(data.message, {});
-      }
+      
     }
   };
   return (

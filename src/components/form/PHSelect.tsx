@@ -20,7 +20,7 @@ const PHSelect = ({ label, name, options }: TPHSelectProps) => {
             options={options}
             size="large"
           />
-          {error && <small style={{ color: 'red' }}>{error.message}</small>}
+          {error && <small className="text-red-400">{error.message}</small>}
         </Form.Item>
       )}
     />

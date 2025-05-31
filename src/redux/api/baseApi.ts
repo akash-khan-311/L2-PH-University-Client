@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {
   fetchBaseQuery,
@@ -10,6 +9,7 @@ import {
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../store";
 import { logOut, setUser } from "../features/auth/authSlice";
+import { toast } from "react-toastify";
 const baseUrl = "http://localhost:5000/api/v1";
 const baseQuery = fetchBaseQuery({
   baseUrl,
@@ -30,9 +30,17 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
 
+  if(result?.error?.status === 400){
+    const errorData = result.error.data as { message?: string };
+    toast.error(errorData?.message || "An error occurred", {
+      autoClose: 3000,
+      position: "bottom-right",
+      theme: "dark",
+    });
+  }
   if (result.error?.status === 401) {
     //* Send Refresh Token
-    console.log("send refresh token");
+
 
     const res = await fetch(`${baseUrl}/auth/refresh-token`, {
       method: "POST",
