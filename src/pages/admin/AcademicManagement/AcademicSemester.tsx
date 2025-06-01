@@ -7,7 +7,7 @@ import { useState } from "react";
 export type TTableData = Pick<TSemesterType , "_id" | "name" | "startMonth" | "endMonth" | "year"> 
 const AcademicSemester = () => {
   const [params,setParams] = useState([])
-  const { data: semesterData, isLoading } = useGetAllSemestersQuery(params);
+  const { data: semesterData, isLoading, isFetching } = useGetAllSemestersQuery(params);
   const semestersData   = semesterData?.data?.result;
   const metaData : TMeta = semesterData?.data?.meta;
 
@@ -78,6 +78,7 @@ if(isLoading) return (
     <div className="flex justify-center items-center h-screen w-full">
       <div className="w-full">
         <Table<TTableData>
+          loading={isFetching}
           columns={columns}
           dataSource={tableData}
           onChange={onChange}
