@@ -11,17 +11,17 @@ type TFieldProps = {
 
 const FieldWrapper = ({ label, children, htmlFor, error, required }: TFieldProps) => {
   const id = htmlFor || getChildId(children);
-
+  
   return (
     <div className="w-full">
       {label && (
         <label
           htmlFor={id}
-          className={`text-white text-sm font-semibold ${
-            required
-              ? 'after:content-["*"] after:ml-0.5 after:text-pink-500'
-              : 'after:contents-["Optional"] after:ml-0.5 after:text-white'
-          }`}
+        className={`text-white text-sm font-semibold ${
+  required
+    ? 'after:content-["*"] after:ml-0.5 after:text-pink-500'
+    : 'after:content-["(Optional)"] after:ml-1 after:text-white text-opacity-70'
+}`}
         >
           {label}
         </label>

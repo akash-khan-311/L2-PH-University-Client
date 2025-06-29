@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { verifyToken } from "../utils/verifyToken";
 import type { TUser } from "../types";
 import { useForm } from "react-hook-form";
-import Field from "@/components/form/FieldWrapper";
+
 import FieldWrapper from "@/components/form/FieldWrapper";
 
 type LoginFormInputs = {
@@ -89,7 +89,7 @@ const LoginPage = () => {
             />
           </FieldWrapper>
 
-      <Field required={true} label={"Password"} htmlFor="password" error={errors.password}>
+      <FieldWrapper required={true} label={"Password"} htmlFor="password" error={errors.password}>
 
 
           <PHInput
@@ -99,7 +99,7 @@ const LoginPage = () => {
             register={register}
             errors={errors}
             />
-            </Field>
+            </FieldWrapper>
 
           <Button
             htmlType="submit"
