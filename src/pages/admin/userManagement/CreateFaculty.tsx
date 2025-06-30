@@ -7,5 +7,4 @@ const CreateFaculty = () => {
     </div>
   );
 };
-
 export default CreateFaculty;

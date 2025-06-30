@@ -38,7 +38,6 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 //     isDeleted: false
 //   }
 // }
-
 const CreateStudent = () => {
     const {
       register,
@@ -46,14 +45,8 @@ const CreateStudent = () => {
       reset,
       formState: { errors },
     } = useForm();
-
-
-
     const onSubmit :SubmitHandler<FieldValues> = data => {
       console.log(data);
-
-    
-
       // const formData = new FormData();
       // formData.append('data', JSON.stringify(data));
 
